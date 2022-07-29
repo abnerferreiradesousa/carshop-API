@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const VehicleZodSchema = z.object({
-  year: z.string().min(1900).max(2021),
+  year: z.number().min(1900).max(2021),
   status: z.boolean().optional(),
   buyValue: z.number({
     invalid_type_error: 'buyValue must be a number',
