@@ -15,11 +15,12 @@ describe('1 - Car Service', () => {
 	before(() => {
 		sinon.stub(carModel, 'create').resolves(carMockWithId);
 		sinon.stub(carModel, 'read').resolves([carMockWithId]);
+		sinon.stub(carModel, 'readOne').resolves(carMockWithId);
 	})
 	after(() => {
 		sinon.restore()
 	})
-	describe('Create Car', () => {
+	describe('1 - Create Car', () => {
 		it('Success', async () => {
 			const carCreated = await carService.create(carMock);
 
@@ -35,20 +36,20 @@ describe('1 - Car Service', () => {
 		});
 	});
 
-	describe('Read Car', () => {
+	describe('2 - Read Car', () => {
 		it('Success', async () => {
 			const carCreated = await carService.read();
 
 			expect(carCreated).to.be.deep.equal([carMockWithId]);
 		});
+	});
 
-		// it('Failure', async () => {
-		// 	try {
-		// 		await carService.create({} as any);
-		// 	} catch (error) {
-		// 		expect(error).to.be.instanceOf(ZodError);
-		// 	}
-		// });
+	describe('3 - ReadOne Car', () => {
+		it('Success', async () => {
+			const carCreated = await carService.readOne(carMockWithId._id);
+
+			expect(carCreated).to.be.deep.equal(carMockWithId);
+		});
 	});
 });
 

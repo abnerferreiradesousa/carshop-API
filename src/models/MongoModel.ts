@@ -16,6 +16,11 @@ abstract class MongoModel<T> {
     const cars = await this._model.find();
     return cars;
   }
+
+  public async readOne(_id: string): Promise<T | null> {
+    const car = await this._model.findById(_id);
+    return car;
+  }
 }
 
 export default MongoModel;
