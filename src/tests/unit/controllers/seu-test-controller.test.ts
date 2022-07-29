@@ -18,6 +18,5 @@
 //   })
 
 //   it('', async () => {});
-console.log('eita');
 
 // });
