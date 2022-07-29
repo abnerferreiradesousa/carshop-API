@@ -11,6 +11,11 @@ abstract class MongoModel<T> {
   public async create(obj:T):Promise<T> {
     return this._model.create({ ...obj });
   }
+
+  public async read(): Promise<T[]> {
+    const cars = await this._model.find();
+    return cars;
+  }
 }
 
 export default MongoModel;
