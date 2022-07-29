@@ -13,9 +13,7 @@ class CarService implements IService<ICar> {
 
   public async create(obj:ICar):Promise<ICar> {
     const parsed = CarZodSchema.safeParse(obj);
-    if (!parsed.success) {
-      throw parsed.error;
-    }
+    if (!parsed.success) throw parsed.error; 
     return this._car.create(obj);
   }
 
@@ -25,8 +23,18 @@ class CarService implements IService<ICar> {
   }
 
   public async readOne(_id: string): Promise<ICar | null> {
+    // Como testar esses ifs?
     if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
     const car = await this._car.readOne(_id);
+    if (!car) throw Error(ErrorTypes.EntityNotFound);
+    return car;
+  }
+
+  public async update(_id: string, carToUpdate: ICar): Promise<ICar | null> {
+    const parsed = CarZodSchema.safeParse(carToUpdate);
+    if (!parsed.success) throw parsed.error; 
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
+    const car = await this._car.update(_id, carToUpdate);
     if (!car) throw Error(ErrorTypes.EntityNotFound);
     return car;
   }

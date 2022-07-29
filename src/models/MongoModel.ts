@@ -21,6 +21,15 @@ abstract class MongoModel<T> {
     const car = await this._model.findById(_id);
     return car;
   }
+
+  public async update(_id: string, obj: Partial<T>): Promise<T | null> {
+    const car = await this._model.findByIdAndUpdate(
+      { _id }, 
+      { ...obj },
+      { new: true },
+    );
+    return car;
+  }
 }
 
 export default MongoModel;

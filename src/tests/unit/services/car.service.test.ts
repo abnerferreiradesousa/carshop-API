@@ -3,7 +3,7 @@ import { ErrorTypes } from '../../../errors/catalog';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { NextFunction, Request, Response } from 'express';
-import {carMock, carMockWithId} from '../mocks/carMock';
+import {carMock, carMockWithId, carMockWithIdToUpdate, carMockWithIdUpdated} from '../mocks/carMock';
 import CarController from '../../../controllers/Car';
 import CarService from '../../../services/Car';
 import CarModel from '../../../models/Car';
@@ -15,7 +15,10 @@ describe('1 - Car Service', () => {
 	before(() => {
 		sinon.stub(carModel, 'create').resolves(carMockWithId);
 		sinon.stub(carModel, 'read').resolves([carMockWithId]);
-		sinon.stub(carModel, 'readOne').resolves(carMockWithId);
+		sinon.stub(carModel, 'readOne')
+			.onCall(0).resolves(carMockWithId) 
+			.onCall(1).resolves(null)
+		sinon.stub(carModel, 'update').resolves(carMockWithIdUpdated);
 	})
 	after(() => {
 		sinon.restore()
@@ -50,7 +53,28 @@ describe('1 - Car Service', () => {
 
 			expect(carCreated).to.be.deep.equal(carMockWithId);
 		});
+		// it('Failure', async () => {
+		// 	const fakeId = "62e45fe854ac30f03ef53982";
+		// 	try {
+		// 		const carCreated = await carService.readOne(fakeId);
+		// 		expect(carCreated).to.be.deep.equal(carMockWithId);
+		// 	} catch(error: any) {
+		// 		console.log(error.message);
+				
+		// 		expect(error).to.be.eql(ErrorTypes.EntityNotFound);
+		// 	}
+		// });
 	});
+
+	describe('4 - Update Car', () => {
+		it('Success', async () => {
+			const carCreated = await carService.update(carMockWithId._id, carMockWithIdToUpdate);
+
+			expect(carCreated).to.be.deep.equal(carMockWithIdUpdated);
+		});
+	});
+
+
 });
 
 // template para criação dos testes de cobertura da camada de service
