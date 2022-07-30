@@ -23,7 +23,7 @@ const carMockWithIdToUpdate = {
   color: "blue",
   model: "Lamborghini Urus",
   seatsQty: 5,
-  doorsQty: 5,
+  doorsQty: 4,
 }
 
 const carMockWithIdUpdated = {
