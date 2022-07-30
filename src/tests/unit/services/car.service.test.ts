@@ -19,6 +19,7 @@ describe('3 - Car Service', () => {
 			.onCall(0).resolves(carMockWithId) 
 			.onCall(1).resolves(null)
 		sinon.stub(carModel, 'update').resolves(carMockWithIdUpdated);
+		sinon.stub(carModel, 'delete').resolves(carMockWithId);
 	})
 	after(() => {
 		sinon.restore()
@@ -74,7 +75,13 @@ describe('3 - Car Service', () => {
 		});
 	});
 
+	describe('5 - Delete Car', () => {
+		it('Success', async () => {
+			const carCreated = await carService.delete(carMockWithId._id);
 
+			expect(carCreated).to.be.deep.equal(carMockWithId);
+		});
+	});
 });
 
 // template para criação dos testes de cobertura da camada de service

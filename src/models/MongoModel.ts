@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 // abstract class MongoModel<T> implements IModel<T> {
 abstract class MongoModel<T> {
   protected _model:Model<T>;
+  
   constructor(model:Model<T>) {
     this._model = model;
   }
@@ -28,6 +29,11 @@ abstract class MongoModel<T> {
       { ...obj },
       { new: true },
     );
+    return car;
+  }
+
+  public async delete(_id: string): Promise<T | null> {
+    const car = await this._model.findOneAndRemove({ _id });
     return car;
   }
 }

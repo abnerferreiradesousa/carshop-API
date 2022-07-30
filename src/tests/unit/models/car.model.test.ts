@@ -17,6 +17,7 @@ describe('2 - Car Model', () => {
 		sinon.stub(Model, 'findById').resolves(carMockWithId);
 		sinon.stub(Model, 'find').resolves([carMockWithId]);
 		sinon.stub(Model, 'findOneAndUpdate').resolves(carMockWithIdUpdated);
+		sinon.stub(Model, 'findOneAndRemove').resolves(carMockWithId);
 	});
 
 	after(() => {
@@ -48,6 +49,13 @@ describe('2 - Car Model', () => {
 		it('successfully', async () => {
 			const updatedCar = await carModel.update(carMockWithId._id, carMockWithIdToUpdate);
 			expect(updatedCar).to.be.deep.equal(carMockWithIdUpdated);
+		});
+	});
+
+	describe('5 - Delete car', () => {
+		it('successfully', async () => {
+			const deletedCar = await carModel.delete(carMockWithId._id);
+			expect(deletedCar).to.be.deep.equal(carMockWithId);
 		});
 	});
 });
