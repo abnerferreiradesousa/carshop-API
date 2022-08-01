@@ -19,13 +19,13 @@ class CarService implements IService<ICar> {
     return cars;
   }
 
-  // public async readOne(_id: string): Promise<ICar | null> {
-  //   // Como testar esses ifs?
-  //   if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
-  //   const car = await this._car.readOne(_id);
-  //   if (!car) throw Error(ErrorTypes.EntityNotFound);
-  //   return car;
-  // }
+  public async readOne(_id: string): Promise<ICar | null> {
+    // Como testar esses ifs?
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
+    const car = await this._car.readOne(_id);
+    if (!car) throw Error(ErrorTypes.EntityNotFound);
+    return car;
+  }
 
   // public async update(_id: string, carToUpdate: ICar): Promise<ICar | null> {
   //   const parsed = CarZodSchema.safeParse(carToUpdate);

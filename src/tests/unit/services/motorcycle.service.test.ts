@@ -18,8 +18,8 @@ describe('3 - motorcycle Service', () => {
 	before(() => {
 		sinon.stub(motorcycleModel, 'create').resolves(motorcycleWithId);
 		sinon.stub(motorcycleModel, 'read').resolves([motorcycleWithId]);
-		// sinon.stub(motorcycleModel, 'readOne')
-		// 	.onCall(0).resolves(motorcycleMockWithId) 
+		sinon.stub(motorcycleModel, 'readOne')
+			.onCall(0).resolves(motorcycleWithId) 
 		// 	.onCall(1).resolves(null)
 		// sinon.stub(motorcycleModel, 'update').resolves(motorcycleMockWithIdUpdated);
 		// sinon.stub(motorcycleModel, 'delete').resolves(motorcycleMockWithId);
@@ -45,9 +45,25 @@ describe('3 - motorcycle Service', () => {
 
 	describe('2 - Read motorcycle', () => {
 		it('Success', async () => {
-			const motorcycleCreated = await motorcycleService.read(motorcycleMock);
+			const motorcycleFounded = await motorcycleService.read();
 
-			expect(motorcycleCreated).to.be.deep.equal(motorcycleWithId);
+			expect(motorcycleFounded).to.be.deep.equal([motorcycleWithId]);
+		});
+
+		it('Failure', async () => {
+			try {
+				await motorcycleService.read();
+			} catch (error) {
+				expect(error).to.be.instanceOf(ZodError);
+			}
+		});
+	});
+
+	describe('3 - ReadOne motorcycle', () => {
+		it('Success', async () => {
+			const motorcycleFounded = await motorcycleService.readOne();
+
+			expect(motorcycleFounded).to.be.deep.equal(motorcycleWithId);
 		});
 
 		it('Failure', async () => {

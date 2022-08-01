@@ -45,9 +45,18 @@ describe('1 - Motorcycle Controller', () => {
   describe('2 - Read Motorcycle', () => {
     it('Success', async () => {
       req.body = motorcycleMock;
-      await motorcycleController.create(req, res);
+      await motorcycleController.read(req, res);
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as sinon.SinonStub).calledWith([motorcycleWithId])).to.be.true;
+    });
+  });
+
+  describe('3 - ReadOne Motorcycle', () => {
+    it('Success', async () => {
+      req.body = motorcycleMock;
+      await motorcycleController.readOne(req, res);
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(motorcycleWithId)).to.be.true;
     });
   });
 });

@@ -13,7 +13,7 @@ describe('2 - Motorcycle Model', () => {
 	before(() => {
 		sinon.stub(Model, 'create').resolves(motorcycleWithId);
 		sinon.stub(Model, 'find').resolves([motorcycleWithId]);
-		// sinon.stub(Model, 'findById').resolves(carMockWithId);
+		sinon.stub(Model, 'findById').resolves(motorcycleWithId);
 		// sinon.stub(Model, 'findOneAndUpdate').resolves(carMockWithIdUpdated);
 		// sinon.stub(Model, 'findOneAndRemove').resolves(carMockWithId);
 	});
@@ -33,6 +33,13 @@ describe('2 - Motorcycle Model', () => {
 		it('successfully', async () => {
 			const newMotorcycle = await motorcycleModel.read();
 			expect(newMotorcycle).to.be.deep.equal([motorcycleWithId]);
+		});
+	});
+
+	describe('2 - ReadOne Motorcycle', () => {
+		it('successfully', async () => {
+			const newMotorcycle = await motorcycleModel.readOne();
+			expect(newMotorcycle).to.be.deep.equal(motorcycleWithId);
 		});
 	});
 });

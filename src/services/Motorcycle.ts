@@ -1,5 +1,7 @@
+import { isValidObjectId } from 'mongoose';
 import { MotorcycleZodSchema, IMotorcycle } from '../interfaces/IMotorcycle';
 import { IModel } from '../interfaces/IModel';
+import { ErrorTypes } from '../errors/catalog';
 // import { IService } from '../interfaces/IService';
 
 // export default class MotorcycleService implements IService<IMotorcycle> { 
@@ -20,6 +22,13 @@ export default class MotorcycleService {
   public async read(): Promise<IMotorcycle[]> {
     const motors = await this._motorcycle.read();
     return motors;
+  }
+
+  public async readOne(_id: string): Promise<IMotorcycle | null> {
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
+    const car = await this._motorcycle.readOne(_id);
+    if (!car) throw Error(ErrorTypes.EntityNotFound);
+    return car;
   }
 
   // public read = () => 'read';
