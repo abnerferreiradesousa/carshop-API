@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import {
   motorcycleMock,
   motorcycleWithId,
+	motorcycleUpdatedMock
 } from '../mocks/motorcycleMock';
 
 describe('2 - Motorcycle Model', () => {
@@ -14,7 +15,7 @@ describe('2 - Motorcycle Model', () => {
 		sinon.stub(Model, 'create').resolves(motorcycleWithId);
 		sinon.stub(Model, 'find').resolves([motorcycleWithId]);
 		sinon.stub(Model, 'findById').resolves(motorcycleWithId);
-		// sinon.stub(Model, 'findOneAndUpdate').resolves(carMockWithIdUpdated);
+		sinon.stub(Model, 'findOneAndUpdate').resolves(motorcycleUpdatedMock);
 		// sinon.stub(Model, 'findOneAndRemove').resolves(carMockWithId);
 	});
 
@@ -39,6 +40,20 @@ describe('2 - Motorcycle Model', () => {
 	describe('3 - ReadOne Motorcycle', () => {
 		it('successfully', async () => {
 			const newMotorcycle = await motorcycleModel.readOne(motorcycleWithId._id);
+			expect(newMotorcycle).to.be.deep.equal(motorcycleWithId);
+		});
+	});
+
+	describe('4 - Update Motorcycle', () => {
+		it('successfully', async () => {
+			const newMotorcycle = await motorcycleModel.update(motorcycleWithId._id, motorcycleUpdatedMock);
+			expect(newMotorcycle).to.be.deep.equal(motorcycleUpdatedMock);
+		});
+	});
+
+	describe('5 - Delete Motorcycle', () => {
+		it('successfully', async () => {
+			const newMotorcycle = await motorcycleModel.delete(motorcycleWithId._id);
 			expect(newMotorcycle).to.be.deep.equal(motorcycleWithId);
 		});
 	});

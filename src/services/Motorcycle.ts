@@ -43,5 +43,10 @@ export default class MotorcycleService {
     return car;
   }
 
-  // public delete = () => 'delete';
+  public async delete(_id: string): Promise<IMotorcycle | null> {
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
+    const car = await this._motorcycle.delete(_id);
+    if (!car) throw Error(ErrorTypes.EntityNotFound);
+    return car;
+  }
 }

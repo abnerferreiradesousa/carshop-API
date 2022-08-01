@@ -6,6 +6,8 @@ import { NextFunction, Request, Response } from 'express';
 import {
   motorcycleMock,
   motorcycleWithId,
+	motorcycleToUpdate,
+	motorcycleUpdatedMock
 } from '../mocks/motorcycleMock';
 // import MotorcycleController from '../../../controllers/Motorcycle';
 import MotorcycleService from '../../../services/Motorcycle';
@@ -68,7 +70,39 @@ describe('3 - motorcycle Service', () => {
 
 		it('Failure', async () => {
 			try {
-				await motorcycleService.read();
+				await motorcycleService.readOne(motorcycleWithId._id);
+			} catch (error) {
+				expect(error).to.be.instanceOf(ZodError);
+			}
+		});
+	});
+
+	describe('4 - Update motorcycle', () => {
+		it('Success', async () => {
+			const motorcycleFounded = await motorcycleService.update(motorcycleWithId._id, motorcycleToUpdate);
+
+			expect(motorcycleFounded).to.be.deep.equal(motorcycleUpdatedMock);
+		});
+
+		it('Failure', async () => {
+			try {
+				await motorcycleService.update(motorcycleWithId._id, motorcycleToUpdate);
+			} catch (error) {
+				expect(error).to.be.instanceOf(ZodError);
+			}
+		});
+	});
+
+	describe('5 - Delete motorcycle', () => {
+		it('Success', async () => {
+			const motorcycleFounded = await motorcycleService.delete(motorcycleWithId._id);
+
+			expect(motorcycleFounded).to.be.deep.equal(motorcycleUpdatedMock);
+		});
+
+		it('Failure', async () => {
+			try {
+				await motorcycleService.delete(motorcycleWithId._id);
 			} catch (error) {
 				expect(error).to.be.instanceOf(ZodError);
 			}
