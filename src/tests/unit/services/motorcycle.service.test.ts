@@ -11,32 +11,48 @@ import {
 import MotorcycleService from '../../../services/Motorcycle';
 import MotorcycleModel from '../../../models/Motorcycle';
 
-describe('3 - Car Service', () => {
-	const carModel = new MotorcycleModel();
-	const carService = new MotorcycleService(carModel);
+describe('3 - motorcycle Service', () => {
+	const motorcycleModel = new MotorcycleModel();
+	const motorcycleService = new MotorcycleService(motorcycleModel);
  
 	before(() => {
-		sinon.stub(carModel, 'create').resolves(motorcycleWithId);
-		// sinon.stub(carModel, 'read').resolves([carMockWithId]);
-		// sinon.stub(carModel, 'readOne')
-		// 	.onCall(0).resolves(carMockWithId) 
+		sinon.stub(motorcycleModel, 'create').resolves(motorcycleWithId);
+		sinon.stub(motorcycleModel, 'read').resolves([motorcycleWithId]);
+		// sinon.stub(motorcycleModel, 'readOne')
+		// 	.onCall(0).resolves(motorcycleMockWithId) 
 		// 	.onCall(1).resolves(null)
-		// sinon.stub(carModel, 'update').resolves(carMockWithIdUpdated);
-		// sinon.stub(carModel, 'delete').resolves(carMockWithId);
+		// sinon.stub(motorcycleModel, 'update').resolves(motorcycleMockWithIdUpdated);
+		// sinon.stub(motorcycleModel, 'delete').resolves(motorcycleMockWithId);
 	})
 	after(() => {
 		sinon.restore()
 	})
-	describe('1 - Create Car', () => {
+	describe('1 - Create motorcycle', () => {
 		it('Success', async () => {
-			const carCreated = await carService.create(motorcycleMock);
+			const motorcycleCreated = await motorcycleService.create(motorcycleMock);
 
-			expect(carCreated).to.be.deep.equal(motorcycleWithId);
+			expect(motorcycleCreated).to.be.deep.equal(motorcycleWithId);
 		});
 
 		it('Failure', async () => {
 			try {
-				await carService.create({} as any);
+				await motorcycleService.create({} as any);
+			} catch (error) {
+				expect(error).to.be.instanceOf(ZodError);
+			}
+		});
+	});
+
+	describe('2 - Read motorcycle', () => {
+		it('Success', async () => {
+			const motorcycleCreated = await motorcycleService.read(motorcycleMock);
+
+			expect(motorcycleCreated).to.be.deep.equal(motorcycleWithId);
+		});
+
+		it('Failure', async () => {
+			try {
+				await motorcycleService.read();
 			} catch (error) {
 				expect(error).to.be.instanceOf(ZodError);
 			}

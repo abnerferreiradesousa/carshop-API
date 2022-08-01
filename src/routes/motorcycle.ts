@@ -14,4 +14,6 @@ route.post(
   (req, res) => motocycleController.create(req, res),
 );
 
+route.get('/motorcycles', (req, res) => motocycleController.read(req, res));
+
 export default route;

@@ -1,4 +1,6 @@
-const motorcycleWithId = {
+import { IMotorcycle } from "../../../interfaces/IMotorcycle"
+
+const motorcycleWithId:IMotorcycle & {_id: string} = {
   _id: "4edd40c86762e0fb12000003",
   model: "Honda CG Titan 125",
   year: 1963,
@@ -8,7 +10,7 @@ const motorcycleWithId = {
   engineCapacity: 125
 }
 
-const motorcycleMock = {
+const motorcycleMock:IMotorcycle = {
   model: "Honda CG Titan 125",
   year: 1963,
   color: "red",

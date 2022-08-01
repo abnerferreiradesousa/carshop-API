@@ -13,7 +13,12 @@ export default class MotorcycleController {
     const newMotorcycle = { 
       model, year, color, buyValue, category, engineCapacity, 
     };
-    const carCreated = await this._service.create(newMotorcycle);
-    return res.status(201).json(carCreated);
+    const motoCreated = await this._service.create(newMotorcycle);
+    return res.status(201).json(motoCreated);
+  }
+
+  public async read(req: Request, res: Response<IMotorcycle[]>) {
+    const motoCreated = await this._service.read();
+    return res.status(200).json(motoCreated);
   }
 }

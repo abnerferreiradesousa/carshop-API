@@ -12,10 +12,10 @@ export default class CarController {
     return res.status(201).json(carCreated);
   }
 
-  // public async read(_req: Request, res: Response<ICar[]>) {
-  //   const cars = await this._service.read();
-  //   return res.status(200).json(cars);
-  // }
+  public async read(_req: Request, res: Response<ICar[]>) {
+    const cars = await this._service.read();
+    return res.status(200).json(cars);
+  }
 
   // public async readOne(req: Request, res: Response<ICar | null>) {
   //   const cars = await this._service.readOne(req.params.id);

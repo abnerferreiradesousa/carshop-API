@@ -17,11 +17,15 @@ export default class MotorcycleService {
     return this._motorcycle.create(obj);
   }
 
+  public async read(): Promise<IMotorcycle[]> {
+    const motors = await this._motorcycle.read();
+    return motors;
+  }
+
+  // public read = () => 'read';
   // public delete = () => 'delete';
 
   // public update = () => 'update';
-
-  // public read = () => 'read';
 
   // public readOne = () => 'readOne';
 }

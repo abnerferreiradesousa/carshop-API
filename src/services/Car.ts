@@ -14,10 +14,10 @@ class CarService implements IService<ICar> {
     return this._car.create(obj);
   }
 
-  // public async read(): Promise<ICar[]> {
-  //   const cars = await this._car.read();
-  //   return cars;
-  // }
+  public async read(): Promise<ICar[]> {
+    const cars = await this._car.read();
+    return cars;
+  }
 
   // public async readOne(_id: string): Promise<ICar | null> {
   //   // Como testar esses ifs?
