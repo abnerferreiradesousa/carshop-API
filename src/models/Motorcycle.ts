@@ -21,3 +21,10 @@ class Motorcycle extends MongoModel<IMotorcycle> {
 }
 
 export default Motorcycle;
+
+// Try one 
+
+// category: {
+//   type: String,
+//   enum: ['Street', 'Custom', 'Trail'],
+// },

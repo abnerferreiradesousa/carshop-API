@@ -1,14 +1,17 @@
 import { Router } from 'express';
-import CarController from '../controllers/Car';
-import CarModel from '../models/Car';
-import CarService from '../services/Car';
+import MotorcycleController from '../controllers/Motorcycle';
+import MotorcycleModel from '../models/Motorcycle';
+import MotorcycleService from '../services/Motorcycle';
 
 const route = Router();
  
-const car = new CarModel();
-const carService = new CarService(car);
-const carController = new CarController(carService);
+const motocycle = new MotorcycleModel();
+const motocycleService = new MotorcycleService(motocycle);
+const motocycleController = new MotorcycleController(motocycleService);
 
-route.post('/cars', (req, res) => carController.create(req, res));
+route.post(
+  '/motorcycles', 
+  (req, res) => motocycleController.create(req, res),
+);
 
 export default route;

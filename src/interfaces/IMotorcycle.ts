@@ -5,7 +5,7 @@ const MotorcycleZodSchema = VehicleZodSchema.extend({
   category: z.enum(['Street', 'Custom', 'Trail']),
   engineCapacity: z.number({
     required_error: 'engineCapacity is required',
-  }).int().max(2500),
+  }).int().min(1).max(2500),
 });
 
 type IMotorcycle = z.infer<typeof MotorcycleZodSchema>;
