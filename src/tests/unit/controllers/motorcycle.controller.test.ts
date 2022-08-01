@@ -21,9 +21,9 @@ describe('1 - Motorcycle Controller', () => {
   before(() => {
     sinon.stub(motorcycleService, 'create').resolves(motorcycleWithId);
     sinon.stub(motorcycleService, 'read').resolves([motorcycleWithId]);
-    // sinon.stub(motorcycleService, 'readOne').resolves(carMockWithId);
-    // sinon.stub(motorcycleService, 'update').resolves(carMockWithIdUpdated);
-    // sinon.stub(motorcycleService, 'delete').resolves(carMockWithId);
+    sinon.stub(motorcycleService, 'readOne').resolves(motorcycleWithId);
+    sinon.stub(motorcycleService, 'update').resolves(motorcycleWithId);
+    sinon.stub(motorcycleService, 'delete').resolves(carMockWithId);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -44,7 +44,6 @@ describe('1 - Motorcycle Controller', () => {
 
   describe('2 - Read Motorcycle', () => {
     it('Success', async () => {
-      req.body = motorcycleMock;
       await motorcycleController.read(req, res);
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as sinon.SinonStub).calledWith([motorcycleWithId])).to.be.true;
@@ -53,9 +52,28 @@ describe('1 - Motorcycle Controller', () => {
 
   describe('3 - ReadOne Motorcycle', () => {
     it('Success', async () => {
-      req.body = motorcycleMock;
+      req.params = {id: motorcycleWithId._id}
       await motorcycleController.readOne(req, res);
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(motorcycleWithId)).to.be.true;
+    });
+  });
+
+  describe('4 - Update Motorcycle', () => {
+    it('Success', async () => {
+      req.body = motorcycleMock;
+      req.params = {id: motorcycleWithId._id}
+      await motorcycleController.update(req, res);
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(motorcycleWithId)).to.be.true;
+    });
+  });
+
+  describe('5 - Delete Motorcycle', () => {
+    it('Success', async () => {
+      req.params = {id: motorcycleWithId._id}
+      await motorcycleController.delete(req, res);
+      expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
       expect((res.json as sinon.SinonStub).calledWith(motorcycleWithId)).to.be.true;
     });
   });

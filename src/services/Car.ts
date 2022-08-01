@@ -27,14 +27,14 @@ class CarService implements IService<ICar> {
     return car;
   }
 
-  // public async update(_id: string, carToUpdate: ICar): Promise<ICar | null> {
-  //   const parsed = CarZodSchema.safeParse(carToUpdate);
-  //   if (!parsed.success) throw parsed.error; 
-  //   if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
-  //   const car = await this._car.update(_id, carToUpdate);
-  //   if (!car) throw Error(ErrorTypes.EntityNotFound);
-  //   return car;
-  // }
+  public async update(_id: string, carToUpdate: ICar): Promise<ICar | null> {
+    const parsed = CarZodSchema.safeParse(carToUpdate);
+    if (!parsed.success) throw parsed.error; 
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
+    const car = await this._car.update(_id, carToUpdate);
+    if (!car) throw Error(ErrorTypes.EntityNotFound);
+    return car;
+  }
 
   // public async delete(_id: string): Promise<ICar | null> {
   //   if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);

@@ -61,7 +61,7 @@ describe('3 - motorcycle Service', () => {
 
 	describe('3 - ReadOne motorcycle', () => {
 		it('Success', async () => {
-			const motorcycleFounded = await motorcycleService.readOne();
+			const motorcycleFounded = await motorcycleService.readOne(motorcycleWithId._id);
 
 			expect(motorcycleFounded).to.be.deep.equal(motorcycleWithId);
 		});

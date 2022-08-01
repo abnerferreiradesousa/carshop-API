@@ -31,10 +31,17 @@ export default class MotorcycleService {
     return car;
   }
 
-  // public read = () => 'read';
+  public async update(
+    _id: string, 
+    carToUpdate: IMotorcycle,
+  ): Promise<IMotorcycle | null> {
+    const parsed = MotorcycleZodSchema.safeParse(carToUpdate);
+    if (!parsed.success) throw parsed.error; 
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
+    const car = await this._motorcycle.update(_id, carToUpdate);
+    if (!car) throw Error(ErrorTypes.EntityNotFound);
+    return car;
+  }
+
   // public delete = () => 'delete';
-
-  // public update = () => 'update';
-
-  // public readOne = () => 'readOne';
 }

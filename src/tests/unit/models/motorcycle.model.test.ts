@@ -36,9 +36,9 @@ describe('2 - Motorcycle Model', () => {
 		});
 	});
 
-	describe('2 - ReadOne Motorcycle', () => {
+	describe('3 - ReadOne Motorcycle', () => {
 		it('successfully', async () => {
-			const newMotorcycle = await motorcycleModel.readOne();
+			const newMotorcycle = await motorcycleModel.readOne(motorcycleWithId._id);
 			expect(newMotorcycle).to.be.deep.equal(motorcycleWithId);
 		});
 	});
