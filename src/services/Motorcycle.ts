@@ -10,9 +10,7 @@ export default class MotorcycleService {
   constructor(model:IModel<IMotorcycle>) {
     this._motorcycle = model;
   }
-
-  // Não dá pra trabalhar com interfaces é muito chato, 
-  // vc tem obrigação de criar tudo ao mesmo tempo?
+  
   public async create(obj:IMotorcycle):Promise<IMotorcycle> {
     const parsed = MotorcycleZodSchema.safeParse(obj);
     if (!parsed.success) throw parsed.error; 

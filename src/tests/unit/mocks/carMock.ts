@@ -1,3 +1,6 @@
+// const fakeId = "62e45fe854ac30f03ef53982";
+const fakeId = "aaaaaaaaaaaaaaaaaaaaaaaa";
+
 const carMock = {
   model: "Ferrari Maranello",
   year: 1963,
@@ -35,9 +38,11 @@ const carMockWithIdUpdated = {
   doorsQty: 5,
   _id: "62e4486c5db2ec3d8c01b1cf"
 }
+
 export {
   carMock, 
   carMockWithId,
   carMockWithIdToUpdate,
-  carMockWithIdUpdated
+  carMockWithIdUpdated,
+  fakeId
 }

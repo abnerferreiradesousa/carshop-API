@@ -20,7 +20,6 @@ class CarService implements IService<ICar> {
   }
 
   public async readOne(_id: string): Promise<ICar | null> {
-    // Como testar esses ifs?
     if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
     const car = await this._car.readOne(_id);
     if (!car) throw Error(ErrorTypes.EntityNotFound);
