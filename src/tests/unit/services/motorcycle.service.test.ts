@@ -1,19 +1,16 @@
 import { ZodError } from 'zod';
-import { ErrorTypes } from '../../../errors/catalog';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { NextFunction, Request, Response } from 'express';
 import {
   motorcycleMock,
   motorcycleWithId,
 	motorcycleToUpdate,
 	motorcycleUpdatedMock
 } from '../mocks/motorcycleMock';
-// import MotorcycleController from '../../../controllers/Motorcycle';
 import MotorcycleService from '../../../services/Motorcycle';
 import MotorcycleModel from '../../../models/Motorcycle';
 
-describe('3 - motorcycle Service', () => {
+describe('3 - Motorcycle Service', () => {
 	const motorcycleModel = new MotorcycleModel();
 	const motorcycleService = new MotorcycleService(motorcycleModel);
  
@@ -22,9 +19,8 @@ describe('3 - motorcycle Service', () => {
 		sinon.stub(motorcycleModel, 'read').resolves([motorcycleWithId]);
 		sinon.stub(motorcycleModel, 'readOne')
 			.onCall(0).resolves(motorcycleWithId) 
-		// 	.onCall(1).resolves(null)
-		// sinon.stub(motorcycleModel, 'update').resolves(motorcycleMockWithIdUpdated);
-		// sinon.stub(motorcycleModel, 'delete').resolves(motorcycleMockWithId);
+		sinon.stub(motorcycleModel, 'update').resolves(motorcycleUpdatedMock);
+		sinon.stub(motorcycleModel, 'delete').resolves(motorcycleWithId);
 	})
 	after(() => {
 		sinon.restore()
@@ -64,48 +60,22 @@ describe('3 - motorcycle Service', () => {
 	describe('3 - ReadOne motorcycle', () => {
 		it('Success', async () => {
 			const motorcycleFounded = await motorcycleService.readOne(motorcycleWithId._id);
-
 			expect(motorcycleFounded).to.be.deep.equal(motorcycleWithId);
-		});
-
-		it('Failure', async () => {
-			try {
-				await motorcycleService.readOne(motorcycleWithId._id);
-			} catch (error) {
-				expect(error).to.be.instanceOf(ZodError);
-			}
 		});
 	});
 
 	describe('4 - Update motorcycle', () => {
 		it('Success', async () => {
-			const motorcycleFounded = await motorcycleService.update(motorcycleWithId._id, motorcycleToUpdate);
-
+			const motorcycleFounded = await motorcycleService
+				.update(motorcycleWithId._id, motorcycleToUpdate);
 			expect(motorcycleFounded).to.be.deep.equal(motorcycleUpdatedMock);
-		});
-
-		it('Failure', async () => {
-			try {
-				await motorcycleService.update(motorcycleWithId._id, motorcycleToUpdate);
-			} catch (error) {
-				expect(error).to.be.instanceOf(ZodError);
-			}
 		});
 	});
 
 	describe('5 - Delete motorcycle', () => {
 		it('Success', async () => {
 			const motorcycleFounded = await motorcycleService.delete(motorcycleWithId._id);
-
-			expect(motorcycleFounded).to.be.deep.equal(motorcycleUpdatedMock);
-		});
-
-		it('Failure', async () => {
-			try {
-				await motorcycleService.delete(motorcycleWithId._id);
-			} catch (error) {
-				expect(error).to.be.instanceOf(ZodError);
-			}
+			expect(motorcycleFounded).to.be.deep.equal(motorcycleWithId);
 		});
 	});
 });

@@ -16,7 +16,7 @@ describe('2 - Motorcycle Model', () => {
 		sinon.stub(Model, 'find').resolves([motorcycleWithId]);
 		sinon.stub(Model, 'findById').resolves(motorcycleWithId);
 		sinon.stub(Model, 'findOneAndUpdate').resolves(motorcycleUpdatedMock);
-		// sinon.stub(Model, 'findOneAndRemove').resolves(carMockWithId);
+		sinon.stub(Model, 'findOneAndRemove').resolves(motorcycleWithId);
 	});
 
 	after(() => {

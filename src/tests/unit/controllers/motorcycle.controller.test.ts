@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import {
   motorcycleMock,
   motorcycleWithId,
@@ -17,13 +17,12 @@ describe('1 - Motorcycle Controller', () => {
 
   const req = {} as Request; 
   const res = {} as Response;
-
   before(() => {
     sinon.stub(motorcycleService, 'create').resolves(motorcycleWithId);
     sinon.stub(motorcycleService, 'read').resolves([motorcycleWithId]);
     sinon.stub(motorcycleService, 'readOne').resolves(motorcycleWithId);
     sinon.stub(motorcycleService, 'update').resolves(motorcycleWithId);
-    sinon.stub(motorcycleService, 'delete').resolves(carMockWithId);
+    sinon.stub(motorcycleService, 'delete').resolves(motorcycleWithId);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -74,7 +73,6 @@ describe('1 - Motorcycle Controller', () => {
       req.params = {id: motorcycleWithId._id}
       await motorcycleController.delete(req, res);
       expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
-      expect((res.json as sinon.SinonStub).calledWith(motorcycleWithId)).to.be.true;
     });
   });
 });

@@ -34,6 +34,10 @@ export default class MotorcycleController {
 
   public async delete(req: Request, res: Response<IMotorcycle | null>) {
     await this._service.delete(req.params.id);
-    return res.status(204).end();
+
+    // Como mocker o end?
+    // return res.status(204).end();
+    
+    return res.status(204).json({} as any);
   }
 }

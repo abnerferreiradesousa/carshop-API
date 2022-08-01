@@ -1,10 +1,12 @@
 import { ZodError } from 'zod';
-import { ErrorTypes } from '../../../errors/catalog';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { NextFunction, Request, Response } from 'express';
-import {carMock, carMockWithId, carMockWithIdToUpdate, carMockWithIdUpdated} from '../mocks/carMock';
-import CarController from '../../../controllers/Car';
+import {
+	carMock,
+	carMockWithId,
+	carMockWithIdToUpdate,
+	carMockWithIdUpdated
+} from '../mocks/carMock';
 import CarService from '../../../services/Car';
 import CarModel from '../../../models/Car';
 
@@ -27,7 +29,6 @@ describe('3 - Car Service', () => {
 	describe('1 - Create Car', () => {
 		it('Success', async () => {
 			const carCreated = await carService.create(carMock);
-
 			expect(carCreated).to.be.deep.equal(carMockWithId);
 		});
 
@@ -43,7 +44,6 @@ describe('3 - Car Service', () => {
 	describe('2 - Read Car', () => {
 		it('Success', async () => {
 			const carCreated = await carService.read();
-
 			expect(carCreated).to.be.deep.equal([carMockWithId]);
 		});
 	});
